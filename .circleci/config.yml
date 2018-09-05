@@ -1,0 +1,12 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.11
+    steps:
+      - checkout
+      - run: curl -fsL https://getcli.jfrog.io | sh
+      - run: curl -sL https://git.io/goreleaser | bash
+      - run: ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --apikey $ARTIFACTORY_APIKEY --interactive=false
+      - run: ./jfrog rt go build go --build-name=$CIRCLE_JOB --build-number=$CIRCLE_BUILD_NUM
+
