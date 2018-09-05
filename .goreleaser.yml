@@ -38,5 +38,6 @@ snapshot:
 
 puts:
   - name: bintray
+    mode: archive
     target: https://api.bintray.com/content/jbaruch/binaries/{{ .ProjectName }}/{{ .Version }}/
     username: jbaruch

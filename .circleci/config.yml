@@ -36,5 +36,3 @@ workflows:
               only: /v[0-9]+(\.[0-9]+)*(-.*)*/
             branches:
               ignore: /.*/
-
-
