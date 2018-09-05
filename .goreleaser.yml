@@ -35,3 +35,8 @@ changelog:
     - '^test:'
 snapshot:
   name_template: '{{ .Env.CIRCLE_BUILD_NUM }}'
+
+puts:
+  - name: bintray
+    target: https://api.bintray.com/content/jbaruch/binaries/{{ .ProjectName }}/{{ .Version }}/
+    username: jbaruch
