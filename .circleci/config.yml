@@ -10,6 +10,10 @@ jobs:
       - run: ./jfrog rt go build go --build-name=$CIRCLE_JOB --build-number=$CIRCLE_BUILD_NUM
       - run: rm string-capitalize-go
       - run: rm jfrog
+  release:
+    docker:
+    - image: circleci/golang:1.11
+    steps:
       - run: curl -sL https://git.io/goreleaser | bash #-s -- --snapshot
 workflows:
   version: 2
