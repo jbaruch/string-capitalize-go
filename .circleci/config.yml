@@ -9,5 +9,14 @@ jobs:
       - run: ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --apikey $ARTIFACTORY_APIKEY --interactive=false
       - run: ./jfrog rt go build go --build-name=$CIRCLE_JOB --build-number=$CIRCLE_BUILD_NUM
       - run: curl -sL https://git.io/goreleaser | bash #-s -- --snapshot
-
+workflows:
+  version: 2
+  release:
+    jobs:
+      - release:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*(-.*)*/
 
