@@ -18,7 +18,7 @@ jobs:
     steps:
       - checkout
       - run: curl -fsL https://getcli.jfrog.io | sh
-      - run: ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --apikey $ARTIFACTORY_APIKEY --interactive=false
+      - run: ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --password $ARTIFACTORY_PASSWORD --interactive=false
       - run: ./jfrog rt go build go      
       - run: rm string-capitalize-go
       - run: rm jfrog  
