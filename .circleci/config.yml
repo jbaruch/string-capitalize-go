@@ -20,7 +20,7 @@ jobs:
       - run: curl -fsL https://getcli.jfrog.io | sh
       - run: ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --password $ARTIFACTORY_PASSWORD --interactive=false
       - run: ./jfrog rt go build go      
-      - run: rm string-capitalize-go
+      - run: go clean
       - run: rm jfrog  
       - run: curl -sL https://git.io/goreleaser | bash
 
