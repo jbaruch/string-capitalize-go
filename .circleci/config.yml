@@ -6,7 +6,7 @@ jobs:
     steps:
       - checkout
       - run: curl -fsL https://getcli.jfrog.io | sh
-      - run: ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --apikey $ARTIFACTORY_APIKEY --interactive=false
+      - run: ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --password $ARTIFACTORY_PASSWORD --interactive=false
       - run: ./jfrog rt go build go --build-name=$CIRCLE_JOB --build-number=$CIRCLE_BUILD_NUM  
       - run: curl -sL https://git.io/goreleaser | bash -s -- --snapshot 
       - run: ./jfrog rt upload "dist/*.tar.gz" binary-releases-local --build-name=$CIRCLE_JOB --build-number=$CIRCLE_BUILD_NUM 
