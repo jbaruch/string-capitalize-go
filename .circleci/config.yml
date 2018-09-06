@@ -7,11 +7,11 @@ jobs:
       - checkout
       - run: curl -fsL https://getcli.jfrog.io | sh
       - run: ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --password $ARTIFACTORY_PASSWORD --interactive=false
-      - run: ./jfrog rt go build go --build-name=$CIRCLE_JOB --build-number=$CIRCLE_BUILD_NUM  
+      - run: ./jfrog rt go build go --build-name=$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME --build-number=$CIRCLE_BUILD_NUM  
       - run: curl -sL https://git.io/goreleaser | bash -s -- --snapshot 
-      - run: ./jfrog rt upload "dist/*.tar.gz" binary-releases-local --build-name=$CIRCLE_JOB --build-number=$CIRCLE_BUILD_NUM 
-      - run: ./jfrog rt build-collect-env $CIRCLE_JOB $CIRCLE_BUILD_NUM 
-      - run: ./jfrog rt build-publish $CIRCLE_JOB $CIRCLE_BUILD_NUM 
+      - run: ./jfrog rt upload "dist/*.tar.gz" binary-releases-local --build-name=$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME --build-number=$CIRCLE_BUILD_NUM 
+      - run: ./jfrog rt build-collect-env $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME $CIRCLE_BUILD_NUM 
+      - run: ./jfrog rt build-publish --build-url=$CIRCLE_BUILD_URL $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME $CIRCLE_BUILD_NUM 
   deploy:
     docker:
     - image: circleci/golang:1.11
@@ -19,10 +19,10 @@ jobs:
       - checkout
       - run: curl -fsL https://getcli.jfrog.io | sh
       - run: ./jfrog rt config --url $ARTIFACTORY_URL --user $ARTIFACTORY_USER --apikey $ARTIFACTORY_APIKEY --interactive=false
-      - run: ./jfrog rt go build go --build-name=$CIRCLE_JOB --build-number=$CIRCLE_BUILD_NUM
+      - run: ./jfrog rt go build go      
       - run: rm string-capitalize-go
       - run: rm jfrog  
-      - run: curl -sL https://git.io/goreleaser | bash #-s -- --snapshot
+      - run: curl -sL https://git.io/goreleaser | bash
 
 workflows:
   version: 2
