@@ -1,2 +1,4 @@
 dist
 jfrog
+string-capitalize-go
+!string-capitalize-go.go
